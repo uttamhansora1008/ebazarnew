@@ -48,7 +48,7 @@
                                     <td>{{ $item->quantity}}</td>
                                     <td>{{ $item->stock}}</td>
                                     <td>
-                                    <img style="width: 64px; height: 64px;" src="{{isset($item->image[0]->image) ? asset('/storage/image/'.$item->image[0]->image) : ''}}">
+                                    <img style="width: 64px; height: 64px;" src="{{isset($item->image[0]->image) ? $item->image[0]->image : ''}}">
                                 </td>
                                     <td>
                                         <a href="{{url('edit-product/'.$item->id)}}" class="btn btn-primary btn-sm">Edit</a>

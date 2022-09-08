@@ -67,7 +67,7 @@
                                     @csrf
                                    
                                 </form>
-                                <img style="width: 200px; height: 200px;" src="{{ URL::asset('/storage/image/'.$item->image)}}">
+                                <img style="width: 200px; height: 200px;" src="{{ $item->image}}">
                                 @endforeach
 
                                 @endif 

@@ -6,8 +6,9 @@
             <li class="active">Checkout Page</li>
         </ol>
     </div>
-</div>
+</div><br>
 
 
-<p style="text-align:center "><img style="height: 360px;"src="{{asset('frontend/images/order-placed.gif')}}" alt="" class="center-block"></p> 
+<p style="text-align:center "><img style="height: 360px;"src="{{asset('frontend/images/order-placed.gif')}}" alt="" class="center-block"></p>
+
 @include('frontend.footer')

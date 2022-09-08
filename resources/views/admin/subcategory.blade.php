@@ -46,7 +46,7 @@
                                  <td>{{ $item->name }}</td>
                                  <td>{{ $item->status }}</td>
                                  <td>
-                                    <img style="width: 64px; height: 64px;" src="{{isset($item->image[0]->image) ? asset('/storage/image/'.$item->image[0]->image) : ''}}">
+                                    <img style="width: 64px; height: 64px;" src="{{asset('/storage/image/'.$item->image)}}">
                                 </td>
                                 <td>
                                     <a href="{{url('edit-subcategory/'.$item->id)}}" class="btn btn-primary btn-sm">Edit</a>
