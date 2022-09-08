@@ -23,9 +23,13 @@ class Category extends Model
             }
 
 
-            
+
             public function image()
             {
                 return $this->hasOne(Image::class,'product_id');
             }
+
+
+
+            
 }
