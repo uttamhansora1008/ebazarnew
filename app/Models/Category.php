@@ -21,6 +21,9 @@ class Category extends Model
             {
                 return $this->hasOne(SubCategory::class,'category_id');
             }
+
+
+            
             public function image()
             {
                 return $this->hasOne(Image::class,'product_id');
