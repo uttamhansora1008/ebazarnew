@@ -26,6 +26,7 @@
                                     <th>Price</th>
                                     <th>Description</th>
                                     <th>Discount</th>
+                                    <th>Color</th>
                                     <th>Quantity</th>
                                     <th>Stock</th>
                                     <th>Image</th>
@@ -45,6 +46,7 @@
                                     <td>{{ $item->price }}</td>
                                     <td>{{ $item->description}}</td>
                                     <td>{{ $item->discount}}</td>
+                                    <td>{{ $item->color}}</td>
                                     <td>{{ $item->quantity}}</td>
                                     <td>{{ $item->stock}}</td>
                                     <td>

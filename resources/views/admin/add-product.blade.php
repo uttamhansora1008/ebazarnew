@@ -37,6 +37,18 @@
                                     </select>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <label for="color">Select Color : <span class="bold red"></span></label>
+                                </td>
+                                <td>
+                                    <select name="color" id="color" class="form-control" required>
+                                        @foreach($color as $item)
+                                        <option value="{{ $item->id }}">{{ $item->color }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                            </tr>
                             <div class="form-group mb-3">
                                 <label for="">Prouct Name</label>
                                 <input type="text" name="name" class=" @error('name') is-invalid @enderror form-control">

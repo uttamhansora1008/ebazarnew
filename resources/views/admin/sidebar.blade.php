@@ -29,6 +29,13 @@
                 <span class="menu-title">Product</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="color">
+                <i class="typcn typcn-compass menu-icon"></i>
+                <span class="menu-title">Colors</span>
+            </a>
+        </li>
+        
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="typcn typcn-user-add-outline menu-icon"></i>

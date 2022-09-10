@@ -35,11 +35,8 @@
                             @foreach ($category as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-
                                 <?php
-
                                 $fdata=\App\Models\Category::where('id',$item->category_id)->first();
-
                                 ?>
                                 <td>{{$fdata->name ?? ''}}</td>
 
