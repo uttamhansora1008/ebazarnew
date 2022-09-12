@@ -26,6 +26,7 @@ class Product extends Model
         'updated_at',
         'deleted_at',
     ];
+
     public function productimage()
     {
         return $this->hasMany(Image::class,'product_id');
@@ -39,4 +40,9 @@ class Product extends Model
         {
           return $this->hasMany(Rating::class);
         }
+        public function color()
+        {
+          return $this->hasMany(Color::class);
+        }
+
 }

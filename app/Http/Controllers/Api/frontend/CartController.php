@@ -28,36 +28,36 @@ class CartController extends Controller
         }
     }
     public function addTocart(Request $request,$id)
-{
-    $validator =  Validator::make($request->all(), [
-        'quantity' => 'required',
-        'size'=>'required',
-
-    ]);
-    if ($validator->fails()) {
-        return response()->json([
-            "flag" => Self::FALSE,
-            "message" => $validator->errors()->first(),
-            "error" => 'validation_error',
-        ], 422);
+    {
+        $validator =  Validator::make($request->all(), [
+            'quantity' => 'required',
+            'size'=>'required',
+            'color'=>'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                "flag" => Self::FALSE,
+                "message" => $validator->errors()->first(),
+                "error" => 'validation_error',
+            ], 422);
+        }
+        $cart=Cart::where(['product_id'=> $id,'user_id' => Auth::user()->id])->first();
+        if($cart){
+            return  Helper::responseWithMessage(Self::TRUE, $cart, 'cart added successfully.',200);
+        }
+        $product = Product::find($id);
+        $cart = new Cart();
+        $cart->user_id=$request->user()->id;
+        $cart->product_id=$product->id;
+        $cart->quantity =$request->quantity;
+        $cart->size =$request->size;
+        $cart->save();
+        if ($cart) {
+            return  Helper::setresponse(Self::TRUE, $cart, "false",200);
+        } else {
+            return Helper::setresponse(Self::FALSE, "", "no data found ",404);
+        }
     }
-    $cart=Cart::where(['product_id'=> $id,'user_id' => Auth::user()->id])->first();
-    if($cart){
-        return  Helper::responseWithMessage(Self::TRUE, $cart, 'cart updated successfully.',200);
-    }
-    $product = Product::find($id);
-    $cart = new Cart();
-    $cart->user_id=$request->user()->id;
-    $cart->product_id=$product->id;
-    $cart->quantity =$request->quantity;
-    $cart->size =$request->size;
-    $cart->save();
-    if ($cart) {
-        return  Helper::setresponse(Self::TRUE, $cart, "false",200);
-    } else {
-        return Helper::setresponse(Self::FALSE, "", "no data found ",404);
-    }
-}
 
 public function update_cart( Request $request,$id)
 {

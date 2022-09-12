@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\Helper;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\Image;
 use App\Models\SubCategory;
@@ -45,6 +46,7 @@ class ProductController extends Controller
             ], 422);
         }
         $subcategorys= SubCategory::where('id', $request->subcategory_id)->select('name')->first();
+        $color=Color::where('id',$request->color_id)->first();
         $product = new Product();
         $product->name = $request->name;
         $product->subcategory_id = $request->subcategory_id;
@@ -53,6 +55,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->quantity = $request->quantity;
         $product->stock = $request->stock;
+        $product->color_id = $request->color_id;
         $product->save();
         foreach ($request->file('image') as $image) {
             $filename = rand(3000,10000).'.'.$image->getClientOriginalExtension();
@@ -62,12 +65,12 @@ class ProductController extends Controller
                         $image->product_id = $product->id;
                         $image->save();
                     }
-        return response()->json(['subcategory' => $subcategorys,'product' => $product,'image' => $image],200);
-
+        return response()->json(['subcategory' => $subcategorys,'product' => $product,'image' => $image,'color'=>$color],200);
     }
     public function update_product(Request $request, $id)
 {
     $product = Product::find($id);
+    $color=Color::where('id',$request->color_id)->first();
     if ($product) {
         $product->name = $request->name;
         $product->price = $request->price;
@@ -75,6 +78,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->quantity = $request->quantity;
         $product->stock = $request->stock;
+        $product->color_id = $request->color_id;
         $product->update();
         foreach ($request->file('image') as $image) {
             $filename = rand(3000,10000).'.'.$image->getClientOriginalExtension();
@@ -84,7 +88,7 @@ class ProductController extends Controller
                         $image->product_id = $product->id;
                         $image->save();
         }
-        return response()->json(['product' => $product,'image' => $image],200);
+        return response()->json(['product' => $product,'image' => $image,'color'=>$color],200);
 }
 }
 public function destory($id)
@@ -111,5 +115,10 @@ public function image_delete( $id)
     } else {
         return response()->json(['message' => 'no image found'],404);
     }
-}  
 }
+
+}
+
+
+
+

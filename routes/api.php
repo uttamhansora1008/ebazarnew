@@ -48,6 +48,9 @@ Route::middleware('auth:api')->group( function () {
 Route::get('/product-detail/{product_id}', [\App\Http\Controllers\api\frontend\ProductController::class, 'product_detail']);
 Route::get('search/{name}', [\App\Http\Controllers\api\frontend\ProductController::class, 'search']);
 Route::post('products/{product}/ratings', [\App\Http\Controllers\api\frontend\ProductController::class, 'rating']);
+Route::post('products/{product}/review', [\App\Http\Controllers\api\frontend\ProductController::class, 'review']);
+ Route::post('product', [\App\Http\Controllers\api\frontend\ProductController::class, 'product']);
+ Route::post('color', [\App\Http\Controllers\api\frontend\ProductController::class, 'color']);
 
 Route::get('/cart-detail', [\App\Http\Controllers\api\frontend\CartController::class, 'cart_detail']);
 Route::post('add-to-cart/{id}',  [\App\Http\Controllers\api\frontend\CartController::class,'addToCart']);
@@ -60,8 +63,10 @@ Route::post('add-to-wishlist/{product}', [WishlistController::class, 'addToWishl
 Route::delete('delete_wishlist/{id}',[WishlistController::class,'delete_wishlist']);
 
 Route::post('/changePassword',[UserController::class,'changePassword']);
-
+Route::post('/forgot-password',[UserController::class,'forgotPassword']);
+Route::post('/verify/pin',[UserController::class,'verifyPin']);
+Route::post('/reset-password',[UserController::class,'resetPassword']);
 
 });
 
-Route::post('forget-password',[UserController::class,'forgetPassword']);
+
