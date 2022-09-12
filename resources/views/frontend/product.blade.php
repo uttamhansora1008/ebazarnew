@@ -6,7 +6,7 @@
 	<div class="container">
 		<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 			<li><a href="{{url('home')}}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-			<li class="active">Products</li>
+			
 		</ol>
 	</div>
 </div>
@@ -39,7 +39,7 @@
 				<div class="products-right-grids-position animated wow slideInRight" data-wow-delay=".5s">
 					<img src="{{asset('frontend/images/18.jpg')}}" alt=" " class="img-responsive" />
 					<div class="products-right-grids-position1">
-						<h4>2016 New Collection</h4>
+						<h4>2022 New Collection</h4>
 						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum
 							necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae
 							non recusandae.</p>

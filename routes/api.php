@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserController as Usercontrollerapi;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Http\Request;
 use Illuminate\Mail\PendingMail;
@@ -20,13 +20,13 @@ use Symfony\Component\Console\Command\CompleteCommand;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('register', [UserController::class, 'register']);
-Route::post('login', [UserController::class, 'login']);
+Route::post('register', [Usercontrollerapi::class, 'register']);
+Route::post('login', [Usercontrollerapi::class, 'login']);
 
 
 Route::middleware('auth:api')->group( function () {
 
- Route::post('profile/{id}',[UserController::class,'profile']);
+ Route::post('profile/{id}',[Usercontrollerapi::class,'profile']);
  Route::get('index',[\App\Http\Controllers\Api\CategoryController::class,'index']);
  Route::post('add_category',[\App\Http\Controllers\Api\CategoryController::class,'add_category']);
  Route::post('update_category/{id}',[\App\Http\Controllers\Api\CategoryController::class,'update']);
@@ -62,11 +62,9 @@ Route::get('/wishlist', [WishlistController::class, 'index']);
 Route::post('add-to-wishlist/{product}', [WishlistController::class, 'addToWishlist']);
 Route::delete('delete_wishlist/{id}',[WishlistController::class,'delete_wishlist']);
 
-Route::post('/changePassword',[UserController::class,'changePassword']);
-Route::post('/forgot-password',[UserController::class,'forgotPassword']);
-Route::post('/verify/pin',[UserController::class,'verifyPin']);
-Route::post('/reset-password',[UserController::class,'resetPassword']);
+Route::post('/changePassword',[Usercontrollerapi::class,'changePassword']);
+Route::post('/forgot-password',[Usercontrollerapi::class,'forgotPassword']);
+Route::post('/verify/pin',[Usercontrollerapi::class,'verifyPin']);
+Route::post('/reset-password',[Usercontrollerapi::class,'resetPassword']);
 
 });
-
-

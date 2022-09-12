@@ -31,6 +31,29 @@ class RatingController extends Controller
          return redirect()->back()->with('status', "thank you for rating this product");
         }
  }
+    public function store(Request $request)
+     {
+      $stars_rated = $request->input('product_rating');
+      $product_id = $request->input('product_id');
+      $product_check = Product::where('id', $product_id)->first();
+      if($product_check)
+      {
+        $existing_rating = Rating::where('user_id', Auth::id())->where('product_id', $product_id)->first();
+        if($existing_rating)
+        {
+            $existing_rating->stars_rated = $stars_rated;
+            $existing_rating->update();
+        }
+        else{
+            Rating::create([
+                'user_id' => Auth::id(),
+                'product_id' => $product_id,
+                'stars_rated' => $stars_rated
+            ]);
+        }
+        return redirect()->back()->with('status', "thank you for rating this product");
+      }
+ }
  public function review(Request $request)
  {
     $name = $request->input('name');

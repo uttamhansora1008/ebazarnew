@@ -48,9 +48,9 @@
 					<td>
 						<div class="col-sm-9">	
 						@php $sizes = $details->size ? json_decode($details->size, true) : []; @endphp
-                    @foreach((array) $sizes as $size)
-					<h4 class="nomargin">{{ $size }}</h4>  
-                    @endforeach	
+                        @foreach((array) $sizes as $size)
+					         <h4 class="nomargin">{{ $size }}</h4>  
+                        @endforeach	
 						</div>
 					</td>
 					<td data-th="Price">{{$p = $product->price - (($product->price * $product->discount) / 100)}}</td>
@@ -60,7 +60,7 @@
                                     <a href="{{url('/cart-updateminus/'.$details->id)}}">
                                         <div class="entry value-minus">&nbsp;</div>
                                     </a>
-                                    <div class="entry value"><span><?= $details->quantity ?></span></div>
+                                    <div class="entry value"><span><?= $details->quantity ?? 0 ?></span></div>
                                     <a href="{{url('/cart-updateplus/'.$details->id)}}">
                                         <div class="entry value-plus">&nbsp;</div>
                                     </a>
@@ -68,14 +68,18 @@
                             </div>
                         </td>
 					<td data-th="Subtotal" class="text-center">
-						{{$p * $details->quantity }}</td>
+						{{$p * $details->quantity ?? 0 }}</td>
 					<td class="invert">
                             <div class="rem">
                                 <a href="{{url('/cart-delete/'.$details->id)}}"><div class="close1"></div></a>
                             </div>
                         </td>
 				</tr>
-				@php $total +=$p * $product->quantity ; @endphp		
+				@php
+				if(isset($product->quantity)){
+				 $total +=$p * $product->quantity ;
+				 }
+				@endphp		
 				@endforeach
 			</table>
 		</div>
@@ -83,8 +87,6 @@
 			<div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
                 <h4>Continue to basket</h4>
                 <ul>
-                  
-					@php $total +=$p * $product->quantity ; @endphp	
                     <li>Total Price: <span><?= $total ?></span></li>
                 </ul>
             </div>
