@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class RatingController extends Controller
 {
     public function add(Request $request)
-    {
+      {
         $stars_rated = $request->input('product_rating');
         $product_id = $request->input('product_id');
         $product_check = Product::where('id', $product_id)->first();
@@ -30,9 +30,9 @@ class RatingController extends Controller
          }
          return redirect()->back()->with('status', "thank you for rating this product");
         }
- }
- public function review(Request $request)
- {
+   }
+  public function review(Request $request)
+   {
     $name = $request->input('name');
     $email = $request->input('email');
     $subject = $request->input('subject');
@@ -49,7 +49,7 @@ class RatingController extends Controller
          $existing_review->Subject = $request->Subject;
          $existing_review->Message = $request->Message;
          $existing_review->update();
-     }
+     }  
      else{
          Review::create([
              'user_id' => Auth::id(),
@@ -66,3 +66,4 @@ class RatingController extends Controller
     }
  }
 }
+

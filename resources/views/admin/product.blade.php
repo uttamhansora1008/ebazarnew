@@ -1,6 +1,5 @@
 @include('admin.head')
 @include('admin.sidebar')
-
 <div class="main-panel">
     <div class="content-wrapper ">
         <div class="row">
@@ -46,7 +45,10 @@
                                     <td>{{ $item->price }}</td>
                                     <td>{{ $item->description}}</td>
                                     <td>{{ $item->discount}}</td>
-                                    <td>{{ $item->color}}</td>
+                                    <?php
+                                    $pdata = \App\Models\Color::where('id', $item->color_id)->first();
+                                    ?>
+                                    <td>{{$pdata->color ?? ''}}</td>
                                     <td>{{ $item->quantity}}</td>
                                     <td>{{ $item->stock}}</td>
                                     <td>
@@ -58,7 +60,6 @@
                                     <td>
                                         <a href="{{url('delete-product/'.$item->id)}}" class="btn btn-danger btn-sm">Delete</a>
                                     </td>
-                                 
                                 </tr>
                                 @endforeach
                             </tbody>
