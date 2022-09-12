@@ -124,8 +124,8 @@
 				<div class="flexslider">
 					<ul class="slides">
                     @foreach ($product->image as $item) 
-						<li data-thumb="{{ URL::asset('/storage/image/'.$item->image)}}">
-						<div class="thumb-image"> <img src="{{ URL::asset('/storage/image/'.$item->image)}}" data-imagezoom="true" class="img-responsive"> </div>
+						<li data-thumb="{{ $item->image}}">
+						<div class="thumb-image"> <img src="{{ $item->image}}" data-imagezoom="true" class="img-responsive"> </div>
 						</li>
 					@endforeach
 					</ul>
@@ -169,6 +169,7 @@
 						Rate this Product
 					</button>
 				</div>
+
 				<form action="{{ url('/cart-Addsave/'.$product->id) }}" method="POST" enctype="multipart/form-data">
                   @csrf
 				<div class="size">

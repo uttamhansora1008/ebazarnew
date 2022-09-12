@@ -24,6 +24,22 @@
 
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <label for="color">Select Color : <span class="bold red"></span></label>
+                                </td>
+
+                                <td>
+
+                                    <select name="color" id="color" class="form-control" required>
+                                        @foreach($color as $item)
+                                        <option value="{{ $item->id }}">{{ $item->color }}</option>
+                                        @endforeach
+                                    </select>
+
+                                </td>
+                            </tr>
+                            
                             <div class="form-group mb-3">
                                 <label for="">Prouct Name</label>
                                 <input type="text" name="name" value="{{$product->name}}" class="form-control">
@@ -67,7 +83,7 @@
                                     @csrf
                                    
                                 </form>
-                                <img style="width: 200px; height: 200px;" src="{{ URL::asset('/storage/image/'.$item->image)}}">
+                                <img style="width: 200px; height: 200px;" src="{{ $item->image}}">
                                 @endforeach
 
                                 @endif 

@@ -37,7 +37,7 @@
 						<?php
 							$product=\App\Models\Product::where('id',$details->product_id)->first();
 							?>
-							<div class="col-sm-3 hidden-xs"><img src="{{URL::asset('/storage/image/'.$product->image[0]->image)}}" width="200" height="200" class="img-responsive" /></div>
+							<div class="col-sm-3 hidden-xs"><img src="{{$product->image[0]->image}}" width="200" height="200" class="img-responsive" /></div>
 						</div>
 					</td>
 					<td>
@@ -71,7 +71,7 @@
 						{{$p * $details->quantity }}</td>
 					<td class="invert">
                             <div class="rem">
-                                <a href="{{url('/cart-delete/'.$details->id)}}"><div class="close1"> </div></a>
+                                <a href="{{url('/cart-delete/'.$details->id)}}"><div class="close1"></div></a>
                             </div>
                         </td>
 				</tr>

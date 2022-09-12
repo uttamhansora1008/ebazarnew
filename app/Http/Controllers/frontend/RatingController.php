@@ -1,14 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\frontend;
-
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Rating;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 class RatingController extends Controller
 {
     public function add(Request $request)

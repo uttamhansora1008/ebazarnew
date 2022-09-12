@@ -52,7 +52,7 @@
 				<div class="col-md-4 products-right-grids-bottom-grid">
 					<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">
 						<div class="new-collections-grid1-image">
-							<a href="single.html" class="product-image"><img src="{{URL::asset('/storage/image/'.@$item->image[0]->image)}}" alt=" " class="img-responsive"></a>
+							<a href="single.html" class="product-image"><img src="{{$item->image[0]->image}}" alt=" " class="img-responsive"></a>
 							<div class="new-collections-grid1-image-pos products-right-grids-pos">
 								<a href="{{url('/product-detail/'.$item->id)}}">Quick View</a>
 							</div>

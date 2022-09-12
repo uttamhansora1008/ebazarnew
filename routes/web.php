@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\frontend\ProductController as Productcontrollers;
@@ -59,6 +60,13 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::post('update-product/{id}', [ProductController::class, 'update']);
     Route::get('delete-product/{id}', [ProductController::class, 'delete']);
     Route::get('/deleteimage/{id}', [ProductController::class, 'imagedelete']);
+
+    Route::get('color', [ColorController::class, 'index'])->name('color.index');
+    Route::get('add-color', [ColorController::class, 'create']);
+    Route::post('add-color', [ColorController::class, 'store']);
+    Route::get('edit-color/{id}', [ColorController::class, 'edit']);
+    Route::post('update-color/{id}', [ColorController::class, 'update']);
+    Route::get('delete-color/{id}', [ColorController::class, 'delete']);
 });
 
 Route::middleware(['auth', 'isUser'])->group(function () {

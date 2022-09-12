@@ -34,28 +34,27 @@ class CartController extends Controller
             'product_id'   => $product_id,
             'quantity'   => 1,
              'size'    => json_encode($request->size)
-       ]);
-       
+       ]);  
      return redirect($_SERVER["HTTP_REFERER"]); 
     }
 
-    public function cartupdateplus($cart_id) {
-      
+    public function cartupdateplus($cart_id) 
+    {
         $cart = cart::find($cart_id);
         $cart->quantity += 1;
         $cart->save();
         return redirect("/cart-detail");
     }
 
-    public function cartupdateminus($cart_id) {
-      
+    public function cartupdateminus($cart_id)
+     {
         $cart = cart::find($cart_id);
         $cart->quantity -= 1;
         $cart->save();
         return redirect("/cart-detail");
     }
-    public function delete($id) {
-
+    public function delete($id)
+     {
         Cart::destroy($id);
         return redirect("/cart-detail");
     }

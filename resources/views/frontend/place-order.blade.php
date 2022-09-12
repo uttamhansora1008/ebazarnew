@@ -32,7 +32,7 @@
     <div class="container">
         <h3 class="animated wow zoomIn" data-wow-delay=".5s">Shipping Address</h3>
         <p class="est animated wow zoomIn" data-wow-delay=".5s">
-        <form action="{{url('/razorpay-payment')}}" method="post">
+        <form action="{{url('/order')}}" method="post">
             @csrf
 
             <div class="login-form-grids">
