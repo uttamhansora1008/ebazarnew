@@ -26,6 +26,7 @@
 						<th>Price</th>
 						<th>Quantity</th>
 						<th>total price</th>
+						<th>Coupon</th>
 						<th>Remove</th>
 					</tr>
 				</thead>
@@ -61,7 +62,7 @@
                                     <a href="{{url('/cart-updateminus/'.$details->id)}}">
                                         <div class="entry value-minus">&nbsp;</div>
                                     </a>
-                                    <div class="entry value"><span><?= $details->quantity ?? 0 ?></span></div>
+                                    <div class="entry value"><span><?= $details->quantity ?? 0 ?? 0 ?></span></div>
                                     <a href="{{url('/cart-updateplus/'.$details->id)}}">
                                         <div class="entry value-plus">&nbsp;</div>
                                     </a>
@@ -74,7 +75,7 @@
                             <div class="rem">
                                 <a href="{{url('/cart-delete/'.$details->id)}}"><div class="close1"></div></a>
                             </div>
-                        </td>
+                    </td>
 				</tr>
 				@php
 				if(isset($product->quantity)){
@@ -143,3 +144,8 @@
 
 
 
+        alert(reason);
+           document.getElementById("reason").value = reason;
+           //document.getElementById("failed_reason").submit();
+	}
+</script>

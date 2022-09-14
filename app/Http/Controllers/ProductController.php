@@ -16,16 +16,18 @@ class ProductController extends Controller
     $image = Image::all();
         $subcategory = product::all();
         $color = Color::all();
+        $color = Color::all();
         $product = product::with('image')->get();
 //  return @$product[2]->image[0]->image;
-        return view('admin.product', compact('product', 'subcategory','image','color'));
+        return view('admin.product', compact('product', 'subcategory','image','color','color'));
     }
     public function create()
     {
         $image = Image::all();
         $subcategory = Subcategory::all();
         $color = Color::all();
-        return view('admin.add-product', compact('subcategory','color'));
+        $color = Color::all();
+        return view('admin.add-product', compact('subcategory','color','color'));
     }
     public function store(Request $request)
     {
@@ -47,6 +49,7 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->discount = $request->input('discount');
         $product->color_id = $request->color;
+        $product->color_id = $request->color;
         $product->quantity = $request->input('quantity');
         $product->stock = $request->input('stock');
         $product->save();
@@ -65,7 +68,8 @@ class ProductController extends Controller
         $subcategory = Subcategory::all();
         $product = Product::find($id);
         $color = Color::all();
-        return view('admin.edit-product', compact('product', 'subcategory', 'color'));
+        $color = Color::all();
+        return view('admin.edit-product', compact('product', 'subcategory', 'color', 'color'));
     }
     public function update(Request $request, $id)
     {
@@ -82,6 +86,7 @@ class ProductController extends Controller
         $product->price = $request->input('price');
         $product->description = $request->input('description');
         $product->discount = $request->input('discount');
+        $product->color_id  = $request->color;
         $product->color_id  = $request->color;
         $product->quantity = $request->input('quantity');
         $product->stock = $request->input('stock');

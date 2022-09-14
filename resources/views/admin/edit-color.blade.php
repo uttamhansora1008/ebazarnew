@@ -11,7 +11,7 @@
                             @csrf
                             <div class="form-group mb-3">
                             <label for="">Color Name</label>
-                            <input type="text" name="color"  value="{{$category->color}}"class="form-control">
+                            <input type="text" name="color"  value="{{$color->color}}"class="form-control">
                         </div>
                        
                         <div class="form-group mb-3">

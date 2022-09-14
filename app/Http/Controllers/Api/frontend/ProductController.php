@@ -9,6 +9,7 @@ use App\Models\Rating;
 use Illuminate\Http\Request;
 use App\Models\Reviews;
 use App\Models\Color;
+use App\Models\Cupon;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -132,6 +133,17 @@ class ProductController extends Controller
         }
         else{
          return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
+        }
+        }
+
+     public function cupon(Request $request)
+        {
+            $cupon = Cupon::all();
+
+        if ($cupon) {
+            return  Helper::setresponse(Self::TRUE, $cupon, "false",200);
+        } else {
+            return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
         }
         }
 }

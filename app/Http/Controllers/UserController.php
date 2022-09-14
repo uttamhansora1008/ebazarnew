@@ -81,6 +81,7 @@ public function register(Request $request)
 public function login(Request $request)
 {
 
+
     if ($request->input('type') == "0") {
         $loginData = $request->all();
         $validator = Validator::make($loginData, [
@@ -88,6 +89,14 @@ public function login(Request $request)
             'password' => 'required',
             'type' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "flag" => Self::FALSE,
+                "message" => $validator->errors()->first(),
+                "error" => 'validation_error',
+            ], 422);
+        }
 
         if ($validator->fails()) {
             return response()->json([
@@ -113,6 +122,14 @@ else{
         'password' => 'required',
         'type' => 'required',
     ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            "flag" => Self::FALSE,
+            "message" => $validator->errors()->first(),
+            "error" => 'validation_error',
+        ], 422);
+    }
 
     if ($validator->fails()) {
         return response()->json([
@@ -181,7 +198,7 @@ return response()->json([
         ], 400);
     }
 }
-  
+
 public function forgotPassword(Request $request)
 {
     $validator = Validator::make($request->all(), [
@@ -284,7 +301,16 @@ public function verifyPin(Request $request)
 }
 }
 
+        $delete = PasswordReset::where([
+            ['email', $request->all()['email']],
+            ['token', $request->all()['token']],
+        ])->delete();
 
-
+        return  Helper::setresponse(Self::FALSE, "", "You can now reset your password",404);
+    } else {
+        return  Helper::setresponse(Self::FALSE, "", "Inavalid token",404);
+    }
+}
+}
 
 
