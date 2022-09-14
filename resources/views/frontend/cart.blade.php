@@ -41,26 +41,27 @@
 						</div>
 					</td>
 					<td>
-						<div class="col-sm-9">	
+						<div class="col-sm-9">
 							<h4 class="nomargin">{{ $product->name }}</h4>
 						</div>
 					</td>
 					<td>
-						<div class="col-sm-9">	
+						<div class="col-sm-9">
 						@php $sizes = $details->size ? json_decode($details->size, true) : []; @endphp
                     @foreach((array) $sizes as $size)
-					<h4 class="nomargin">{{ $size }}</h4>  
-                    @endforeach	
+					<h4 class="nomargin">{{ $size }}</h4>
+                    @endforeach
 						</div>
 					</td>
 					<td data-th="Price">{{$p = $product->price - (($product->price * $product->discount) / 100)}}</td>
+
 					<td class="invert">
-                            <div class="quantity"> 
-                                <div class="quantity-select">   
+                            <div class="quantity">
+                                <div class="quantity-select">
                                     <a href="{{url('/cart-updateminus/'.$details->id)}}">
                                         <div class="entry value-minus">&nbsp;</div>
                                     </a>
-                                    <div class="entry value"><span><?= $details->quantity ?></span></div>
+                                    <div class="entry value"><span><?= $details->quantity ?? 0 ?></span></div>
                                     <a href="{{url('/cart-updateplus/'.$details->id)}}">
                                         <div class="entry value-plus">&nbsp;</div>
                                     </a>
@@ -68,14 +69,18 @@
                             </div>
                         </td>
 					<td data-th="Subtotal" class="text-center">
-						{{$p * $details->quantity }}</td>
+						{{$p * $details->quantity ?? 0 }}</td>
 					<td class="invert">
                             <div class="rem">
                                 <a href="{{url('/cart-delete/'.$details->id)}}"><div class="close1"></div></a>
                             </div>
                         </td>
 				</tr>
-				@php $total +=$p * $product->quantity ; @endphp		
+				@php
+				if(isset($product->quantity)){
+				 $total +=$p * $product->quantity ;
+				 }
+				@endphp
 				@endforeach
 			</table>
 		</div>
@@ -83,8 +88,6 @@
 			<div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
                 <h4>Continue to basket</h4>
                 <ul>
-                  
-					@php $total +=$p * $product->quantity ; @endphp	
                     <li>Total Price: <span><?= $total ?></span></li>
                 </ul>
             </div>
@@ -94,7 +97,7 @@
 			<div class="clearfix"> </div>
 		</div>
 	</div>
-</div> 
+</div>
 @include('frontend.footer')
 </body>
 </html>
@@ -106,8 +109,8 @@
             url: "{{ route('update.cart') }}",
             method: "get",
             data: {
-                _token: '{{ csrf_token() }}', 
-                id: ele.parents("tr").attr("data-id"), 
+                _token: '{{ csrf_token() }}',
+                id: ele.parents("tr").attr("data-id"),
                 quantity: ele.parents("tr").find(".quantity").val()
             },
             success: function (response) {
@@ -115,7 +118,7 @@
             }
         });
     });
- </script> 
+ </script>
  <script type="text/javascript">
 	$(".cart_remove").click(function(e) {
 		e.preventDefault();
@@ -137,7 +140,6 @@
 		}
 	});
 </script>
-
 
 
 

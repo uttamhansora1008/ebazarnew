@@ -47,7 +47,7 @@ class ProductController extends Controller
     public function rating(Request $request,  $id)
     {
         $validator =  Validator::make($request->all(), [
-            'rating' => 'required',
+            'stars_rated' => 'required',
 
         ]);
         if ($validator->fails()) {
@@ -61,7 +61,7 @@ class ProductController extends Controller
         $rating= new Rating();
         $rating->user_id=$request->user()->id;
         $rating->product_id=$product->id;
-        $rating->rating=$request->rating;
+        $rating->stars_rated=$request->stars_rated;
         $rating->save();
         if($rating) {
             return  Helper::setresponse(Self::TRUE, $rating, "",200);

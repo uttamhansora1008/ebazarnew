@@ -13,7 +13,7 @@ class Subcategory extends Model
     protected $fillable = [
         'name',
         'status	',
-        
+
     ];
     protected $hidden=[
         'created_at',
@@ -28,4 +28,8 @@ class Subcategory extends Model
    {
        return $this->hasMany(Image::class,'product_id');
    }
+   public function getImageAttribute($val)
+{
+    return asset('storage/image/'.$val);
+}
 }

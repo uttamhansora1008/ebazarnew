@@ -20,7 +20,7 @@ class CartController extends Controller
     {
         $user = auth('api')->user();
         $cart=Cart::where('user_id',$user->id)->pluck('product_id');
-        $product = Product::with('image')->whereIn('id', $cart)->select( 'id','name','discount','price')->get();
+        $product = Product::with('img')->whereIn('id', $cart)->select( 'id','name','discount','price')->get();
         if ($product) {
             return  Helper::setresponse(Self::TRUE, $product, "false",200);
         } else {

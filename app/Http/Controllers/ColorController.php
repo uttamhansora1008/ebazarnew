@@ -7,48 +7,48 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
-use App\Models\Category;
+use App\Models\Color;
 
 class ColorController extends Controller
 {
     public function index()
     {
-        $category = Category::all();
-        return view('admin.category', compact('category'));
+        $color = Color::all();
+        return view('admin.color', compact('color'));
     }
     public function create()
     {
-        return view('admin.add-category');
+        return view('admin.add-color');
     }
     public function store(Request $request)
     {
       $validatedData = $request->validate([
-            'name' => 'required',
-           'status' =>'required',
+            'color' => 'required',
+
           ]);
-        $category = new Category();
-        $category->name = $request->input('name');
-        $category->status= $request->input('status');
-        $category->save();
-        return redirect()->route('category.index');
+        $color = new Color();
+        $color->color = $request->input('color');
+
+        $color->save();
+        return redirect()->route('color.index');
     }
     public function edit($id)
     {
-        $category = Category::find($id);
-        return view('admin.edit-category', compact('category'));
+        $color = Color::find($id);
+        return view('admin.edit-color', compact('color'));
     }
     public function update(Request $request, $id)
-    { 
-        $category = Category::find($id);
-        $category->name = $request->input('name');
-        $category->status = $request->input('status');
-        $category->update();
-        return redirect()->route('category.index');
+    {
+        $color = Color::find($id);
+        $color->color = $request->input('color');
+
+        $color->update();
+        return redirect()->route('color.index');
     }
     public function delete($id)
     {
-        $category = Category::find($id);
-        $category->delete();
-        return redirect()->route('category.index');
+        $color = Color::find($id);
+        $color->delete();
+        return redirect()->route('color.index');
     }
 }

@@ -23,7 +23,7 @@
                         </div>
                         @endif
                         <h4 class="card-title">Add Product</h4>
-                        <form action="{{ url('add-prdouct')}}" method="post" enctype="multipart/form-data">   
+                        <form action="{{ url('add-prdouct')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <tr>
                                 <td>
