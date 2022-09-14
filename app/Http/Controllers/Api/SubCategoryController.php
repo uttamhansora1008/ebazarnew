@@ -48,7 +48,7 @@ class SubCategoryController extends Controller
     $subcategory->status = $request->status;
     foreach ($request->file('image') as $image) {
         $filename = rand(3000,10000).'.'.$image->getClientOriginalExtension();
-        $image_path = $image->move(storage_path("images"), $filename );
+        $image_path = $image->move(storage_path("app/public/image"), $filename );
                     $subcategory->image = $filename;
                     $subcategory->save();
                 }

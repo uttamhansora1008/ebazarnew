@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CuponController;
 use App\Http\Controllers\frontend\ProductController as Productcontrollers;
 use App\Http\Controllers\frontend\OrderController as Ordercontrollers;
 use App\Http\Controllers\frontend\RatingController as Ratingcontrollers;
@@ -67,6 +68,13 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('edit-color/{id}', [ColorController::class, 'edit']);
     Route::post('update-color/{id}', [ColorController::class, 'update']);
     Route::get('delete-color/{id}', [ColorController::class, 'delete']);
+
+    Route::get('cupon', [CuponController::class, 'index'])->name('cupon.index');
+    Route::get('add-cupon', [CuponController::class, 'create']);
+    Route::post('add-cupon', [CuponController::class, 'store']);
+    Route::get('edit-cupon/{id}', [CuponController::class, 'edit']);
+    Route::post('update-cupon/{id}', [CuponController::class, 'update']);
+    Route::get('delete-cupon/{id}', [CuponController::class, 'delete']);
 });
 
 Route::middleware(['auth', 'isUser'])->group(function () {
@@ -77,8 +85,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     Route::get('/product-detail/{product_id}', [Productcontrollers::class, 'productdetail']);
     // Route::get('/cart-detail/{product_id}', [Productcontrollers::class, 'cart']);
     // Route::get('add-to-cart/{id}',  [Productcontrollers::class,'addToCart']);
-   Route::get('update-cart', [Productcontrollers::class, 'update'])->name('update.cart');
-   Route::get('remove-from-cart', [Productcontrollers::class, 'remove'])->name('remove_from_cart');
+    Route::get('update-cart', [Productcontrollers::class, 'update'])->name('update.cart');
+    Route::get('remove-from-cart', [Productcontrollers::class, 'remove'])->name('remove_from_cart');
     Route::get('/place-order', [Ordercontrollers::class, 'orderAddress']);
     Route::post('/order', [Ordercontrollers::class, 'order']);
     Route::get('/order-confirm', [Ordercontrollers::class, 'orderConfirm']);
@@ -96,6 +104,7 @@ Route::get('/cart-delete/{id}', [Cartcontrollers::class, 'delete']);
 
 Route::get('razorpay-payment', [RazorpayPaymentController::class, 'index']);
 Route::post('razorpay-payment', [RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');
+
 });
 
 

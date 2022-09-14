@@ -67,4 +67,7 @@ Route::post('/forgot-password',[Usercontrollerapi::class,'forgotPassword']);
 Route::post('/verify/pin',[Usercontrollerapi::class,'verifyPin']);
 Route::post('/reset-password',[Usercontrollerapi::class,'resetPassword']);
 
+
+Route::get('/cupon', [\App\Http\Controllers\api\frontend\ProductController::class, 'cupon']);
+
 });

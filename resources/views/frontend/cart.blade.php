@@ -26,6 +26,7 @@
 						<th>Price</th>
 						<th>Quantity</th>
 						<th>total price</th>
+						<th>Coupon</th>
 						<th>Remove</th>
 					</tr>
 				</thead>
@@ -69,11 +70,25 @@
                         </td>
 					<td data-th="Subtotal" class="text-center">
 						{{$p * $details->quantity ?? 0 }}</td>
+						
+						
+						
+		     	<td>
+						<div class="col-sm-9">	
+							<h4 class="nomargin">
+							<a href="#" onclick="promptMe()">
+                             <span  class="glyphicon glyphicon-tags"></span>
+		                    </a>
+							</h4>
+						</div>
+				</td>
+
+				
 					<td class="invert">
                             <div class="rem">
                                 <a href="{{url('/cart-delete/'.$details->id)}}"><div class="close1"></div></a>
                             </div>
-                        </td>
+                    </td>
 				</tr>
 				@php
 				if(isset($product->quantity)){
@@ -140,6 +155,14 @@
 	});
 </script>
 
-
+<script>
+function promptMe() {
+        var reason = prompt("Enter Your Coupon Code");
+		
+        alert(reason);
+           document.getElementById("reason").value = reason;
+           //document.getElementById("failed_reason").submit();
+	}    
+</script>
 
 
