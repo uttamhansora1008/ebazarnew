@@ -34,4 +34,6 @@ class authcheck
             return response()->json(['flag' => $flag, 'data' => $data, 'error' => $error]);
         }
     }
+
+    
 }
