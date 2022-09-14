@@ -24,7 +24,7 @@ Route::post('register', [Usercontrollerapi::class, 'register']);
 Route::post('login', [Usercontrollerapi::class, 'login']);
 
 
-Route::middleware('auth:api')->group( function () {
+Route::middleware([checkauth::class])->group(function(){
 
  Route::post('profile/{id}',[Usercontrollerapi::class,'profile']);
  Route::get('index',[\App\Http\Controllers\Api\CategoryController::class,'index']);
@@ -68,6 +68,6 @@ Route::post('/verify/pin',[Usercontrollerapi::class,'verifyPin']);
 Route::post('/reset-password',[Usercontrollerapi::class,'resetPassword']);
 
 });
-     
+
 
 
