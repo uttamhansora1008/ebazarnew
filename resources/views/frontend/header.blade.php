@@ -3,7 +3,7 @@
     <!-- for-mobile-apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Best Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+    <meta name="keywords" content="Best Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <script type="application/x-javascript">
         addEventListener("load", function() {
@@ -56,7 +56,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="header-grid-right animated wow slideInRight" data-wow-delay=".5s">
                     <ul class="social-icons">
                         <li><a href="#" class="facebook"></a></li>
-                        <li><a href="#" class="twitter"></a></li>  
+                        <li><a href="#" class="twitter"></a></li>
                         <li><a href="#" class="g"></a></li>
                         <li><a href="#" class="instagram"></a></li>
                     </ul>
@@ -82,10 +82,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <ul class="nav navbar-nav">
                                 <li><a href="{{url('/products')}}">Home</a></li>
                                 <?php
-                                $category = App\Models\Category::all();
+                                $subcategory = App\Models\Category::all();
                                 ?>
                                 <?php
-                                foreach ($category as $item) {
+                                foreach ($subcategory as $item) {
                                 ?>
                                     <li class="dropdown">
                                         <a href="{{url('/product-by-cat')}}/<?= $item->id ?>"><?= $item->name ?> </a>
@@ -140,3 +140,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
     </div>
     <!-- //header -->
+
+

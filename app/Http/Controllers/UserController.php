@@ -301,16 +301,3 @@ public function verifyPin(Request $request)
 }
 }
 
-        $delete = PasswordReset::where([
-            ['email', $request->all()['email']],
-            ['token', $request->all()['token']],
-        ])->delete();
-
-        return  Helper::setresponse(Self::FALSE, "", "You can now reset your password",404);
-    } else {
-        return  Helper::setresponse(Self::FALSE, "", "Inavalid token",404);
-    }
-}
-}
-
-

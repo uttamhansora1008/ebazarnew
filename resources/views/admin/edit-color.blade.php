@@ -13,7 +13,11 @@
                             <label for="">Color Name</label>
                             <input type="text" name="color"  value="{{$color->color}}"class="form-control">
                         </div>
-                       
+                        <div class="form-group mb-3">
+                            <label for="">Color Code</label>
+                            <input type="text" name="color_code"  value="{{$color->color_code}}"class="form-control">
+                        </div>
+
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary">Save Color</button>
                         </div>

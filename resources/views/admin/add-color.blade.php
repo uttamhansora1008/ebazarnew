@@ -16,7 +16,14 @@
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
                             </div>
-                            
+                            <div class="form-group mb-3">
+                                <label for="">Color code</label>
+                                <input type="text" name="color_code" class=" @error('color_code') is-invalid @enderror form-control">
+                                @error('color_code')
+                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <div class="form-group mb-3">
                                 <button type="submit" class="btn btn-primary">Save Color</button>
                             </div>

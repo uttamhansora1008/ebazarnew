@@ -24,10 +24,12 @@ class ColorController extends Controller
     {
       $validatedData = $request->validate([
             'color' => 'required',
+            'color_code' => 'required',
 
           ]);
         $color = new Color();
         $color->color = $request->input('color');
+        $color->color_code = $request->input('color_code');
 
         $color->save();
         return redirect()->route('color.index');
@@ -41,7 +43,7 @@ class ColorController extends Controller
     {
         $color = Color::find($id);
         $color->color = $request->input('color');
-
+        $color->color_code = $request->input('color_code');
         $color->update();
         return redirect()->route('color.index');
     }
@@ -52,3 +54,5 @@ class ColorController extends Controller
         return redirect()->route('color.index');
     }
 }
+
+

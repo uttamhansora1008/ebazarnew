@@ -7,7 +7,7 @@
             <div class="col-lg-12">
                 <div class="card">
                 <div class="card-header">
-                    <h4>Colors</h4> 
+                    <h4>Colors</h4>
                 </div>
                 <div class="card-header-right" >
                 <a href="add-color">
@@ -22,7 +22,8 @@
                             <tr >
                                 <th>Index</th>
                                 <th>Color Name</th>
-                               
+                                <th>Color Code</th>
+
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -32,7 +33,8 @@
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->color }}</td>
-                       
+                                <td>{{ $item->color_code }}</td>
+
                                 <td>
                                     <a href="{{url('edit-color/'.$item->id)}}" class="btn btn-primary btn-sm">Edit</a>
                                 </td>
@@ -42,7 +44,7 @@
                             </tr>
                             @endforeach
                         </tbody>
-                    </table>                       
+                    </table>
                     </div>
                 </div>
             </div>

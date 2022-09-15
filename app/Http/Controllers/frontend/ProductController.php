@@ -27,7 +27,7 @@ class ProductController extends Controller
         $product->save();
         return redirect()->back();
     }
-    
+
     public function productbycat($id)
     {
         $product = Product::where('subcategory_id', $id)->get();
@@ -36,7 +36,7 @@ class ProductController extends Controller
     public function productdetail($product_id)
     {
         $product = Product::find($product_id);
-        $image = \App\Models\Image::where('product_id', $product_id)->get();
+        $image = Image::where('product_id', $product_id)->get();
         $ratings = Rating::where('product_id', $product->id)->get();
         $rating_sum = Rating::where('product_id', $product->id)->sum('stars_rated');
         $user_rating = Rating::where('product_id', $product->id)->where('user_id', Auth::id())->first();
@@ -90,12 +90,12 @@ class ProductController extends Controller
     //         }
     //         session()->flash('success', 'Product successfully removed!');
     //     }
-    // } 
+    // }
 public function update(Request $request,$id)
 {
     $cart = Cart::find($id);
     $cart->quantity = $request->input('quantity');
-   
+
     $cart->update();
     return redirect()->route('update.cart');
 }

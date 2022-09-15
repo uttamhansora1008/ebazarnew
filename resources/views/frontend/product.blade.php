@@ -6,7 +6,7 @@
 	<div class="container">
 		<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 			<li><a href="{{url('home')}}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-			
+
 		</ol>
 	</div>
 </div>
@@ -82,7 +82,7 @@
 						<div class="simpleCart_shelfItem products-right-grid1-add-cart">
 							<p><i>{{$item->price}}</i>
 								{{$p = $item->price - (($item->price * $item->discount) / 100)}}
-								<span class="item_price"></span><a class="item_add" href="{{url('cart-Addsave/'.$item->id)}}">add to cart </a>           
+								<span class="item_price"></span><a class="item_add" href="{{url('cart-Addsave/'.$item->id)}}">add to cart </a>
 							</p>
 						</div>
 					</div>

@@ -9,7 +9,7 @@
                 <div class="card-header">
                     <h4>Sub Category</h4>
                 </div>
-                
+
                 <div class="card-header-right" >
                 <a href="add-subcategory">
                     <button type="button" class="btn btn-primary mr-2 float-right" >
@@ -43,7 +43,7 @@
                                  <td>{{ $item->name }}</td>
                                  <td>{{ $item->status }}</td>
                                  <td>
-                                    <img style="width: 64px; height: 64px;" src="{{asset('/storage/image/'.$item->image)}}">
+                                    <img style="width: 64px; height: 64px;" src="{{($item->image)}}">
                                 </td>
                                 <td>
                                     <a href="{{url('edit-subcategory/'.$item->id)}}" class="btn btn-primary btn-sm">Edit</a>

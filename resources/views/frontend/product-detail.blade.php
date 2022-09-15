@@ -57,7 +57,7 @@
 	<div class="container">
 		<ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
 			<li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-			
+
 		</ol>
 	</div>
 </div>
@@ -123,14 +123,15 @@
 			<div class="col-md-5 single-right-left animated wow slideInUp" data-wow-delay=".5s">
 				<div class="flexslider">
 					<ul class="slides">
-                    @foreach ($product->image as $item) 
+                    @foreach ($product->image as $item)
 						<li data-thumb="{{ $item->image}}">
-						<div class="thumb-image"> <img src="{{ $item->image}}" data-imagezoom="true" class="img-responsive"> </div>
+						<div class="thumb-image"> <img src="{{$item->image}}" data-imagezoom="true" class="img-responsive"> </div>
 						</li>
 					@endforeach
 					</ul>
 				</div>
 				<!-- flixslider -->
+                <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
 				<script defer src="{{ asset('frontend/js/jquery.flexslider.js') }}"></script>
 				<link rel="stylesheet" href="{{ asset('frontend/css/flexslider.css') }}" type="text/css" media="screen" />
 				<script>
@@ -208,7 +209,7 @@
 			<div class="bootstrap-tab animated wow slideInUp" data-wow-delay=".5s">
 				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 					<ul id="myTab" class="nav nav-tabs" role="tablist">
-						
+
 						<li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Add Your Reviews</a></li>
 						<li role="presentation" class="dropdown">
 							<a href="#dropdown1" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">Information <span class="caret"></span></a>
@@ -219,16 +220,16 @@
 						</li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
-						
+
 						<div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="profile" aria-labelledby="profile-tab">
 							<div class="bootstrap-tab-text-grids">
-								
+
 								<div class="add-review">
-								
+
 									<form action="{{route('review')}}" method="POST">
 									@csrf
 									<input type="hidden" name="product_id" value="{{$product->id}}">
-									
+
 										<div class="form-group mb-3">
                               <label for="">Name:</label>
                               <input type="text" name="name" class=" @error('name') is-invalid @enderror form-control">

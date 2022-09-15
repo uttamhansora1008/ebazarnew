@@ -92,8 +92,8 @@ Route::middleware(['auth', 'isUser'])->group(function () {
     Route::get('/order-confirm', [Ordercontrollers::class, 'orderConfirm']);
     Route::post('add-rating',[Ratingcontrollers::class, 'add']);
     Route::get('/show',[Uploadcontrollers::class,'show']);
-    Route::post('add-review',[Ratingcontrollers::class, 'review'])->name('review');  
-    
+    Route::post('add-review',[Ratingcontrollers::class, 'review'])->name('review');
+
 Route::get('/cart-detail', [Cartcontrollers::class, 'cartdetail']);
 Route::get('/cart-Add/{product_id}', [Cartcontrollers::class, 'cartAdd']);
 Route::get('/cart-Addsave/{product_id}', [Cartcontrollers::class, 'cartAddsave']);

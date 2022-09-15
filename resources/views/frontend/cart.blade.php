@@ -49,20 +49,19 @@
 					<td>
 						<div class="col-sm-9">
 						@php $sizes = $details->size ? json_decode($details->size, true) : []; @endphp
-                    @foreach((array) $sizes as $size)
-					<h4 class="nomargin">{{ $size }}</h4>
-                    @endforeach
+                        @foreach((array) $sizes as $size)
+					         <h4 class="nomargin">{{ $size }}</h4>
+                        @endforeach
 						</div>
 					</td>
 					<td data-th="Price">{{$p = $product->price - (($product->price * $product->discount) / 100)}}</td>
-
 					<td class="invert">
                             <div class="quantity">
                                 <div class="quantity-select">
                                     <a href="{{url('/cart-updateminus/'.$details->id)}}">
                                         <div class="entry value-minus">&nbsp;</div>
                                     </a>
-                                    <div class="entry value"><span><?= $details->quantity ?? 0 ?? 0 ?></span></div>
+                                    <div class="entry value"><span><?= $details->quantity ?? 0 ?></span></div>
                                     <a href="{{url('/cart-updateplus/'.$details->id)}}">
                                         <div class="entry value-plus">&nbsp;</div>
                                     </a>
@@ -71,6 +70,20 @@
                         </td>
 					<td data-th="Subtotal" class="text-center">
 						{{$p * $details->quantity ?? 0 }}</td>
+
+
+
+		     	<td>
+						<div class="col-sm-9">
+							<h4 class="nomargin">
+							<a href="#" onclick="promptMe()">
+                             <span  class="glyphicon glyphicon-tags"></span>
+		                    </a>
+							</h4>
+						</div>
+				</td>
+
+
 					<td class="invert">
                             <div class="rem">
                                 <a href="{{url('/cart-delete/'.$details->id)}}"><div class="close1"></div></a>
@@ -78,6 +91,7 @@
                     </td>
 				</tr>
 				@php
+                $total=0;
 				if(isset($product->quantity)){
 				 $total +=$p * $product->quantity ;
 				 }
@@ -141,8 +155,9 @@
 		}
 	});
 </script>
-
-
+<script>
+function promptMe() {
+        var reason = prompt("Enter Your Coupon Code");
 
         alert(reason);
            document.getElementById("reason").value = reason;
