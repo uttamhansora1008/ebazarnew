@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Image;
 use App\Models\Rating;
 use App\Models\Cart;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,11 @@ class ProductController extends Controller
         $product->save();
         return redirect()->back();
     }
-
+    public function subcategorybycat($id)
+    {
+        $subcategory = Subcategory::where('category_id', $id)->get();
+        return view('frontend.subcategory', compact('subcategory'));
+    }
     public function productbycat($id)
     {
         $product = Product::where('subcategory_id', $id)->get();

@@ -80,8 +80,6 @@ public function register(Request $request)
 }
 public function login(Request $request)
 {
-
-
     if ($request->input('type') == "0") {
         $loginData = $request->all();
         $validator = Validator::make($loginData, [
@@ -98,13 +96,7 @@ public function login(Request $request)
             ], 422);
         }
 
-        if ($validator->fails()) {
-            return response()->json([
-                "flag" => Self::FALSE,
-                "message" => $validator->errors()->first(),
-                "error" => 'validation_error',
-            ], 422);
-        }
+
 
     if(auth()->attempt($loginData)){
         $token= auth()->user()->createToken('Token')->accessToken;
@@ -122,14 +114,6 @@ else{
         'password' => 'required',
         'type' => 'required',
     ]);
-
-    if ($validator->fails()) {
-        return response()->json([
-            "flag" => Self::FALSE,
-            "message" => $validator->errors()->first(),
-            "error" => 'validation_error',
-        ], 422);
-    }
 
     if ($validator->fails()) {
         return response()->json([

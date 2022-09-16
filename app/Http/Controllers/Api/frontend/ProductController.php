@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\Helper;
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use App\Models\Reviews;
 use App\Models\Color;
 use App\Models\Cupon;
+use App\Models\Size;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -126,6 +128,7 @@ class ProductController extends Controller
        {
         $color=new Color();
         $color->color = $request->color;
+        $color->color_code = $request->color_code;
         $color->save();
         if($color)
         {
@@ -135,16 +138,72 @@ class ProductController extends Controller
          return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
         }
         }
+        public function getcolor(Request $request)
+        {
+            $color = Color::all();
 
+        if ($color) {
+            return  Helper::setresponse(Self::TRUE, $color, "false",200);
+        } else {
+            return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
+        }
+        }
+        public function updateColor(Request $request,$id)
+{
+        $color=Color::find($id);
+        $color->color = $request->color;
+        $color->color_code = $request->color_code;
+        $color->update();
+        if($color)
+        {
+            return  Helper::setresponse(Self::TRUE, $color, "",200);
+        }
+        else{
+         return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
+        }
+        }
+        public function delete_color(Request $request,$id)
+{
+    $color = Color::find($id);
+    if ($color) {
+        $color->delete();
+        return response()->json(['message' => 'color deleted successfully'],200);
+    } else {
+        return response()->json(['message' => 'no color found'],404);
+    }
+        }
+
+
+        public function size(Request $request)
+       {
+        $size=new Size();
+        $size->size = $request->size;
+        $size->save();
+        if($size)
+        {
+            return  Helper::setresponse(Self::TRUE, $size, "",200);
+        }
+        else{
+         return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
+        }
+        }
+   public function getsize(Request $request)
+        {
+            $size = Size::all();
+        if ($size) {
+            return  Helper::setresponse(Self::TRUE, $size, "false",200);
+        } else {
+            return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
+        }
+        }
      public function cupon(Request $request)
         {
             $cupon = Cupon::all();
-
         if ($cupon) {
             return  Helper::setresponse(Self::TRUE, $cupon, "false",200);
         } else {
             return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
         }
         }
-        
+
 }

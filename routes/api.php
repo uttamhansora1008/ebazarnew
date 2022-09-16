@@ -44,13 +44,18 @@ Route::middleware([checkauth::class])->group(function(){
  Route::delete('delete/{id}',[\App\Http\Controllers\Api\ProductController::class,'destory']);
  Route::delete('image_delete/{id}',[\App\Http\Controllers\Api\ProductController::class,'image_delete']);
 
- Route::get('/product-by-cat/{subcategory_id}', [\App\Http\Controllers\api\frontend\ProductController::class, 'product_by_cat']);
+Route::get('/product-by-cat/{subcategory_id}', [\App\Http\Controllers\api\frontend\ProductController::class, 'product_by_cat']);
 Route::get('/product-detail/{product_id}', [\App\Http\Controllers\api\frontend\ProductController::class, 'product_detail']);
 Route::get('search/{name}', [\App\Http\Controllers\api\frontend\ProductController::class, 'search']);
 Route::post('products/{product}/ratings', [\App\Http\Controllers\api\frontend\ProductController::class, 'rating']);
 Route::post('products/{product}/review', [\App\Http\Controllers\api\frontend\ProductController::class, 'review']);
- Route::post('product', [\App\Http\Controllers\api\frontend\ProductController::class, 'product']);
- Route::post('color', [\App\Http\Controllers\api\frontend\ProductController::class, 'color']);
+Route::post('product', [\App\Http\Controllers\api\frontend\ProductController::class, 'product']);
+Route::post('color', [\App\Http\Controllers\api\frontend\ProductController::class, 'color']);
+Route::get('get_color', [\App\Http\Controllers\api\frontend\ProductController::class, 'getcolor']);
+Route::post('update_color/{id}',[\App\Http\Controllers\api\frontend\ProductController::class,'updateColor']);
+Route::delete('delete_color/{id}',[\App\Http\Controllers\api\frontend\ProductController::class,'delete_color']);
+Route::get('get_size', [\App\Http\Controllers\api\frontend\ProductController::class, 'getsize']);
+Route::post('size', [\App\Http\Controllers\api\frontend\ProductController::class, 'size']);
 
 Route::get('/cart-detail', [\App\Http\Controllers\api\frontend\CartController::class, 'cart_detail']);
 Route::post('add-to-cart/{id}',  [\App\Http\Controllers\api\frontend\CartController::class,'addToCart']);
@@ -68,6 +73,7 @@ Route::post('/verify/pin',[Usercontrollerapi::class,'verifyPin']);
 Route::post('/reset-password',[Usercontrollerapi::class,'resetPassword']);
 
 });
+
 
 
 

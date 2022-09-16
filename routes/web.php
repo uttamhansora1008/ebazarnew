@@ -82,6 +82,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 
     Route::get('/products', [Productcontrollers::class, 'product']);
     Route::get('/product-by-cat/{subcategory_id}', [Productcontrollers::class, 'productbycat']);
+    Route::get('/subcategory-by-cat/{category_id}', [Productcontrollers::class, 'subcategorybycat']);
     Route::get('/product-detail/{product_id}', [Productcontrollers::class, 'productdetail']);
     // Route::get('/cart-detail/{product_id}', [Productcontrollers::class, 'cart']);
     // Route::get('add-to-cart/{id}',  [Productcontrollers::class,'addToCart']);

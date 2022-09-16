@@ -82,19 +82,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <ul class="nav navbar-nav">
                                 <li><a href="{{url('/products')}}">Home</a></li>
                                 <?php
-                                $subcategory = App\Models\Category::all();
+                                $category = App\Models\Category::all();
                                 ?>
                                 <?php
-                                foreach ($subcategory as $item) {
+                                foreach ($category as $item) {
                                 ?>
-                                    <li class="dropdown">
-                                        <a href="{{url('/product-by-cat')}}/<?= $item->id ?>"><?= $item->name ?> </a>
+                                    <li class="dropbtn" >
+                                        <a href="{{url('/subcategory-by-cat')}}/<?= $item->id ?>"class="dropdown-content"><?= $item->name ?> </a>
                                     </li>
                                 <?php
                                 }
                                 ?>
+
                             </ul>
-                        </div>
+
                     </nav>
                 </div>
             <div class="logo-nav-right">
