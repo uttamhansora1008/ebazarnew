@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api\frontend;
 use App\Http\Controllers\Controller;
 use App\Helpers\Helper;
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use App\Models\Reviews;
 use App\Models\Color;
 use App\Models\Cupon;
+use App\Models\review;
 use App\Models\Size;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,7 +32,7 @@ class ProductController extends Controller
     public function product_detail(Request $request,$id)
     {
         $product = Product::find($id);
-        $product = Product::with('img')->whereIn('id', $product)->get();
+        $product = Product::with('productimage')->whereIn('id', $product)->get();
         if ($product) {
             return  Helper::setresponse(Self::TRUE, $product, "",200);
         } else {
@@ -47,11 +49,10 @@ class ProductController extends Controller
         }
     }
 
-    public function rating(Request $request,  $id)
+    public function rating(Request $request,$id)
     {
         $validator =  Validator::make($request->all(), [
             'stars_rated' => 'required',
-
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -60,24 +61,30 @@ class ProductController extends Controller
                 "error" => 'validation_error',
             ], 422);
         }
+        $rating=Rating::where(['product_id'=> $id,'user_id' =>auth('api')->user()->id])->first();
+        if($rating){
+        $product = Product::find($id);
+        $rating->user_id=auth('api')->user()->id;
+        $rating->product_id=$product->id;
+        $rating->stars_rated=$request->stars_rated;
+            $rating->update();
+            return  Helper::responseWithMessage(Self::TRUE, $rating, 'rating update successfully.',200);
+        }
         $product = Product::find($id);
         $rating= new Rating();
-        $rating->user_id=$request->user()->id;
+        $rating->user_id=auth('api')->user()->id;
         $rating->product_id=$product->id;
         $rating->stars_rated=$request->stars_rated;
         $rating->save();
-        if($rating) {
-            return  Helper::setresponse(Self::TRUE, $rating, "",200);
-        } else {
-            return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
+        if ($rating) {
+            return  Helper::setresponse(Self::TRUE, $rating, "rating added successfully");
         }
     }
     public function review(Request $request, $id)
     {
         $validator =  Validator::make($request->all(), [
-            'review' => 'required',
+            'Message' => 'required',
             'image.*' => 'required',
-
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -87,10 +94,13 @@ class ProductController extends Controller
             ], 422);
         }
         $product = Product::find($id);
-        $review=new  Reviews();
-        $review->user_id=$request->user()->id;
+        $review=new  review();
+        $review->user_id=auth('api')->user()->id;
         $review->product_id=$product->id;
-        $review->review=$request->review;
+        $review->subject=$request->subject;
+        $review->Message=$request->Message;
+        $review->Email=$request->Email;
+        $review->Name=$request->Name;
         $images = $request->file('image');
         if ($images) {
             $filename = rand() . '.' . $images->getClientOriginalExtension();
@@ -107,23 +117,16 @@ class ProductController extends Controller
     }
     public function product(Request $request)
     {
-        $min_price = Product::min('price');
-        $max_price = Product::max('price');
+        $id=auth('api')->user()->id;
+        $category = Category::where('id',$id )->get();
+        $color = Color::where('id',$category)->select('color')->get();
+        $size=Size::where('id',$color)->with( 'img')->get();
         $filter_min_price = $request->min_price;
         $filter_max_price = $request->max_price;
         $range = [$filter_min_price, $filter_max_price];
-        $products = Product::query()->whereBetween('price', $range)->get();
-
-        if($filter_min_price && $filter_max_price){
-                    if($filter_min_price > 0 && $filter_max_price > 0)
-                    {
-                        $products = Product::all()->whereBetween('price', [$filter_min_price, $filter_max_price]);
-                    }
-                } else {
-                    $products = Product::with('image')->get();
-                }
-            return response()->json(['products'=>$products,'min_price'=>$min_price,'max_price'=>$max_price,'filter_min_price'=>$filter_min_price,'filter_max_price'=>$filter_max_price]);
-        }
+        $products = Product::query()->whereBetween('price', $range)->with('img')->get();
+        return response()->json(['product' => $products],200);
+    }
        public function color(Request $request)
        {
         $color=new Color();
@@ -207,3 +210,5 @@ class ProductController extends Controller
         }
 
 }
+
+

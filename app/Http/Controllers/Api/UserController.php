@@ -160,38 +160,38 @@ return response()->json([
     }
 }
 
-// public function verifyPin(Request $request)
-// {
-//     $validator = Validator::make($request->all(), [
-//         'email' => ['required', 'string', 'email', 'max:255'],
-//         'token' => ['required'],
-//     ]);
+public function verifyPin(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'email' => ['required', 'string', 'email', 'max:255'],
+        'token' => ['required'],
+    ]);
 
-//     if ($validator->fails()) {
-//         return  Helper::setresponse(Self::FALSE, "", "",200);
-//     }
+    if ($validator->fails()) {
+        return  Helper::setresponse(Self::FALSE, "", "",200);
+    }
 
-//     $check =  PasswordReset::where([
-//         ['email', $request->all()['email']],
-//         ['token', $request->all()['token']],
-//     ]);
+    $check =  PasswordReset::where([
+        ['email', $request->all()['email']],
+        ['token', $request->all()['token']],
+    ]);
 
-//     if ($check->exists()) {
-//         $difference = Carbon::now()->diffInSeconds($check->first()->created_at);
-//         if ($difference > 3600) {
-//             return  Helper::setresponse(Self::FALSE, "", "No record found.",404);
-//         }
+    if ($check->exists()) {
+        $difference = Carbon::now()->diffInSeconds($check->first()->created_at);
+        if ($difference > 3600) {
+            return  Helper::setresponse(Self::FALSE, "", "No record found.",404);
+        }
 
-//         $delete = PasswordReset::where([
-//             ['email', $request->all()['email']],
-//             ['token', $request->all()['token']],
-//         ])->delete();
+        $delete = PasswordReset::where([
+            ['email', $request->all()['email']],
+            ['token', $request->all()['token']],
+        ])->delete();
 
-//         return  Helper::setresponse(Self::FALSE, "", "You can now reset your password",404);
-//     } else {
-//         return  Helper::setresponse(Self::FALSE, "", "Inavalid token",404);
-//     }
-// }
+        return  Helper::setresponse(Self::FALSE, "", "You can now reset your password",404);
+    } else {
+        return  Helper::setresponse(Self::FALSE, "", "Inavalid token",404);
+    }
+}
 public function forgotPassword(Request $request)
 {
     $validator = Validator::make($request->all(), [

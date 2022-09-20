@@ -41,13 +41,14 @@ class CartController extends Controller
                 "error" => 'validation_error',
             ], 422);
         }
-        $cart=Cart::where(['product_id'=> $id,'user_id' => Auth::user()->id])->first();
+
+        $cart=Cart::where(['product_id'=> $id,'user_id' =>auth('api')->user()->id])->first();
         if($cart){
             return  Helper::responseWithMessage(Self::TRUE, $cart, 'cart added successfully.',200);
         }
         $product = Product::find($id);
         $cart = new Cart();
-        $cart->user_id=$request->user()->id;
+        $cart->user_id=auth('api')->user()->id;
         $cart->product_id=$product->id;
         $cart->quantity =$request->quantity;
         $cart->size =$request->size;
@@ -82,7 +83,7 @@ public function update_cart( Request $request,$id)
 }
     public function cart_delete(Request $request)
     {
-            $cart = Cart::where(['user_id' => Auth::user()->id,'product_id' => $request->product_id])->first();
+            $cart = Cart::where(['user_id' => auth('api')->user()->id,'product_id' => $request->product_id])->first();
         if ($cart) {
             $cart->delete();
             return response()->json(['message' => 'cart item deleted successfully'],200);
@@ -127,3 +128,5 @@ public function order(Request $request) {
 
 }
 }
+
+

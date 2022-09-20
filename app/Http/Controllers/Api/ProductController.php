@@ -8,10 +8,11 @@ use App\Helpers\Helper;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\Image;
+use App\Models\Rating;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -19,8 +20,7 @@ class ProductController extends Controller
     const FALSE= "false";
     public function product()
     {
-        $product = Product::with('img')->get();
-
+        $product = Product::with('img')->with('rating')->get();
         if ($product) {
             return  Helper::setresponse(Self::TRUE, $product, "false",200);
         } else {

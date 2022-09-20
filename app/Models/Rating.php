@@ -14,4 +14,13 @@ class Rating extends Model
       'product_id',
       'stars_rated'
     ];
+
+    protected $hidden=[
+       'updated_at',
+       'created_at'
+    ];
+    public function rating()
+      {
+          return $this->hasOne(Rating::class,'product_id');
+      }
 }

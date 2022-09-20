@@ -44,5 +44,8 @@ class Product extends Model
         {
           return $this->hasMany(Color::class);
         }
-
+        public function rating()
+        {
+            return $this->hasOne(Rating::class,'product_id');
+        }
 }

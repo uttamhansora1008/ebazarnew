@@ -69,23 +69,23 @@ class RatingController extends Controller
      {
          $existing_review->Name = $request->Name;
          $existing_review->Email = $request->Email;
-         $existing_review->Subject = $request->Subject;
+         $existing_review->subject = $request->subject;
          $existing_review->Message = $request->Message;
          $existing_review->update();
-     }  
+     }
      else{
          Review::create([
-             'user_id' => Auth::id(),
+             'user_id' =>  Auth::id(),
              'product_id' => $product_id,
              'Name' => $name,
              'Email' => $email,
-             'Subject' => $subject,
+             'subject' => $subject,
              'Message' => $message,
          ]);
      }
      return redirect()->back()->with('status', "thank you for rating this product");
     }else{
-        
+
     }
  }
 }

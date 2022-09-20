@@ -242,14 +242,11 @@ public function resetPassword(Request $request)
     $user->update([
         'password'=>Hash::make($request->password)
     ]);
-
-    $token= auth()->user()->createToken('Token')->accessToken;
-
-
+    // $token= auth()->user()->createToken('Token')->accessToken;
     return response([
         'success' => true,
         'message' => "Your password has been reset",
-        'token'=>$token]);
+        ]);
 }
 public function verifyPin(Request $request)
 {

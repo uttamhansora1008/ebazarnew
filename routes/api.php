@@ -47,8 +47,8 @@ Route::middleware([checkauth::class])->group(function(){
 Route::get('/product-by-cat/{subcategory_id}', [\App\Http\Controllers\api\frontend\ProductController::class, 'product_by_cat']);
 Route::get('/product-detail/{product_id}', [\App\Http\Controllers\api\frontend\ProductController::class, 'product_detail']);
 Route::get('search/{name}', [\App\Http\Controllers\api\frontend\ProductController::class, 'search']);
-Route::post('products/{product}/ratings', [\App\Http\Controllers\api\frontend\ProductController::class, 'rating']);
-Route::post('products/{product}/review', [\App\Http\Controllers\api\frontend\ProductController::class, 'review']);
+Route::post('products/{id}/ratings', [\App\Http\Controllers\api\frontend\ProductController::class, 'rating']);
+Route::post('products/{id}/review', [\App\Http\Controllers\api\frontend\ProductController::class, 'review']);
 Route::post('product', [\App\Http\Controllers\api\frontend\ProductController::class, 'product']);
 Route::post('color', [\App\Http\Controllers\api\frontend\ProductController::class, 'color']);
 Route::get('get_color', [\App\Http\Controllers\api\frontend\ProductController::class, 'getcolor']);

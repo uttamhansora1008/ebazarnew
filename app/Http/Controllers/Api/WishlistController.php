@@ -14,7 +14,7 @@ class WishlistController extends Controller
     const FALSE= "false";
     public function index(Request $request)
     {
-        $user = Auth::user();
+        $user = auth('api')->user()->id;
        $wishlists = Wishlist::where("user_id",$user->id)->get();
 
       if ($wishlists) {
@@ -27,13 +27,15 @@ class WishlistController extends Controller
     {
         $product = Product::find($id);
         $wishlist= new Wishlist();
-        $wishlist->user_id=$request->user()->id;
+        $wishlist->user_id=auth('api')->user()->id;
         $wishlist->product_id=$product->id;
         $wishlist->save();
         if ($wishlist) {
-            return  Helper::setresponse(Self::TRUE, $wishlist, "");
+            $wishlist->user_id=auth('api')->user()->id ?? $wishlist->user_id;
+            $wishlist->product_id=$product->id ?? $wishlist->product_id;
+            $wishlist->delete();
         } else {
-            return  Helper::setresponse(Self::FALSE, "", "no data found ");
+            return  Helper::setresponse(Self::FALSE, $wishlist, "no data found ");
         }
     }
 public function delete_wishlist($id)
