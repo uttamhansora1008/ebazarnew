@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers\Api\frontend;
 
 use App\Http\Controllers\Controller;
@@ -14,6 +15,7 @@ use App\Models\Color;
 use App\Models\Cupon;
 use App\Models\review;
 use App\Models\Size;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -22,7 +24,7 @@ class ProductController extends Controller
     const FALSE= "false";
     public function  product_by_cat($id)
     {
-        $product = Product::where('subcategory_id', $id)->with('img')->get();
+        $product = Product::where('subcategory_id', $id)->with(['img','rating','wishlist'])->get();
         if ($product) {
             return Helper::setresponse(Self::TRUE, $product, "",200);
         } else {
@@ -32,7 +34,7 @@ class ProductController extends Controller
     public function product_detail(Request $request,$id)
     {
         $product = Product::find($id);
-        $product = Product::with('productimage')->whereIn('id', $product)->get();
+        $product = Product::with(['productimage','rating'])->whereIn('id', $product)->get();
         if ($product) {
             return  Helper::setresponse(Self::TRUE, $product, "",200);
         } else {
@@ -41,7 +43,7 @@ class ProductController extends Controller
     }
     function search($name)
     {
-        $result = Product::where('name', 'LIKE', '%'. $name. '%')->with('img')->get();
+        $result = Product::where('name', 'LIKE', '%'. $name. '%')->with(['img','rating'])->get();
         if (count($result)) {
             return  Helper::setresponse(Self::TRUE, $result, "",200);
         } else {
@@ -117,15 +119,31 @@ class ProductController extends Controller
     }
     public function product(Request $request)
     {
-        $id=auth('api')->user()->id;
-        $category = Category::where('id',$id )->get();
-        $color = Color::where('id',$category)->select('color')->get();
-        $size=Size::where('id',$color)->with( 'img')->get();
+        // if ($request->colors != null) {
+        //     $colors = [];
+        //     $color_id = implode(",", $request->colors);
+        //     $color_idexplode = explode(",", $color_id);
+        //     foreach ($color_idexplode as $color) {
+        //         array_push($colors, $color);
+        //     }
+        // }
         $filter_min_price = $request->min_price;
         $filter_max_price = $request->max_price;
         $range = [$filter_min_price, $filter_max_price];
-        $products = Product::query()->whereBetween('price', $range)->with('img')->get();
-        return response()->json(['product' => $products],200);
+         $color_id=$request->color_id;
+        $size_id=$request->size_id;
+        $category_id=$request->category_id;
+        $category=Subcategory::orWhere('category_id',$category_id)->get();
+        $products = Product::orWhere('color_id',$color_id)
+        ->orWhere('size_id',$size_id)
+        ->orWhere('subcategory_id',$category_id)
+        ->orwhereBetween('price', $range)->with('img','rating','wishlist')
+        ->get();
+        if ($products) {
+            return  Helper::setresponse(Self::TRUE, $products, "false",200);
+        } else {
+            return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
+        }
     }
        public function color(Request $request)
        {
@@ -210,5 +228,7 @@ class ProductController extends Controller
         }
 
 }
+
+
 
 

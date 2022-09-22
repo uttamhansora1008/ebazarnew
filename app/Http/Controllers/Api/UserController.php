@@ -112,20 +112,21 @@ public function register(Request $request)
 }
 public function profile(Request $request,$id)
 {
-    $user= User::find($id);
-    $images = $request->file('image');
-        if ($images) {
-            $filename = rand() . '.' . $images->getClientOriginalExtension();
-            $images->move(storage_path('app/public/profile'), $filename);
-            $user->image = $filename;
-            $user->update();
-        }
+    // $user= User::find($id);
+    // $images = $request->file('image');
+    //     if ($images) {
+    //         $filename = rand() . '.' . $images->getClientOriginalExtension();
+    //         $images->move(storage_path('app/public/profile'), $filename);
+    //         $user->image = $filename;
+    //         $user->update();
+    //     }
+    $user =auth('api')->user();
+    $user = User::where("id",$user->id)->get();
         if ($user) {
             return  Helper::setresponse(Self::TRUE, $user, "false",200);
         } else {
             return Helper::setresponse(Self::FALSE, "", "no data found ",404);
         }
-
 }
 public function changepassword(Request $request)
 {

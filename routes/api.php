@@ -26,7 +26,7 @@ Route::post('login', [Usercontrollerapi::class, 'login']);
 
 Route::middleware([checkauth::class])->group(function(){
 
- Route::post('profile/{id}',[Usercontrollerapi::class,'profile']);
+ Route::get('profile',[Usercontrollerapi::class,'profile']);
  Route::get('index',[\App\Http\Controllers\Api\CategoryController::class,'index']);
  Route::post('add_category',[\App\Http\Controllers\Api\CategoryController::class,'add_category']);
  Route::post('update_category/{id}',[\App\Http\Controllers\Api\CategoryController::class,'update']);
@@ -62,6 +62,7 @@ Route::post('add-to-cart/{id}',  [\App\Http\Controllers\api\frontend\CartControl
 Route::post('update_cart/{id}',[\App\Http\Controllers\api\frontend\CartController::class,'update_cart']);
 Route::post('cart_delete',[\App\Http\Controllers\api\frontend\CartController::class,'cart_delete']);
 Route::post('/order', [\App\Http\Controllers\api\frontend\CartController::class, 'order']);
+Route::post('cupon', [\App\Http\Controllers\api\frontend\CartController::class, 'cupon']);
 
 Route::get('/wishlist', [WishlistController::class, 'index']);
 Route::post('add-to-wishlist/{product}', [WishlistController::class, 'addToWishlist']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\frontend;
 use App\Http\Controllers\Controller;
 use App\Helpers\Helper;
 use App\Models\Cart;
+use App\Models\Cupon;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
@@ -18,11 +19,17 @@ class CartController extends Controller
     const FALSE= "false";
     public function cart_detail(Request $request)
     {
+        $total=0;
+
         $user = auth('api')->user();
         $cart=Cart::where('user_id',$user->id)->pluck('product_id');
-        $product = Product::with('img')->whereIn('id', $cart)->select( 'id','name','discount','price')->get();
+        $product = Product::with('img')->whereIn('id', $cart)->select( 'id','name','discount','price','quantity')->get();
+
+        foreach($product as $price){
+            $total+=$price->price*$price->quantity-=$price->discount/100;
+        }
         if ($product) {
-            return  Helper::setresponse(Self::TRUE, $product, "false",200);
+            return  Helper::setresponse(Self::TRUE, $product,$total, "false",200);
         } else {
             return Helper::setresponse(Self::FALSE, "", "no data found ",404);
         }
@@ -32,7 +39,6 @@ class CartController extends Controller
         $validator =  Validator::make($request->all(), [
             'quantity' => 'required',
             'size'=>'required',
-            'color'=>'required',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -46,12 +52,14 @@ class CartController extends Controller
         if($cart){
             return  Helper::responseWithMessage(Self::TRUE, $cart, 'cart added successfully.',200);
         }
+        $cupon=cupon::where('id',$cart)->select('cupon_name')->get();
         $product = Product::find($id);
         $cart = new Cart();
         $cart->user_id=auth('api')->user()->id;
         $cart->product_id=$product->id;
         $cart->quantity =$request->quantity;
         $cart->size =$request->size;
+
         $cart->save();
         if ($cart) {
             return  Helper::setresponse(Self::TRUE, $cart, "false",200);
@@ -127,6 +135,34 @@ public function order(Request $request) {
     }
 
 }
+public function cupon(Request $request)
+    {
+        $validator =  Validator::make($request->all(), [
+            'cupon_name' => 'required',
+           'min_price' =>'required',
+           'percentage' =>'required',
+           'description' =>'required',
+          ]);
+          if ($validator->fails()) {
+            return response()->json([
+                "flag" => Self::FALSE,
+                "message" => $validator->errors()->first(),
+                "error" => 'validation_error',
+            ], 422);
+          }
+        $cupon = new Cupon();
+        $cupon->cupon_name = $request->input('cupon_name');
+        $cupon->min_price= $request->input('min_price');
+        $cupon->percentage = $request->input('percentage');
+        $cupon->expire_date = $request->input('expire_date');
+        $cupon->description = $request->input('description');
+        $cupon->save();
+        if ($cupon) {
+            return  Helper::setresponse(Self::TRUE, $cupon, "cupon added successfully",200);
+        } else {
+            return Helper::setresponse(Self::FALSE, "", "no data found ",404);
+        }
+    }
 }
 
 

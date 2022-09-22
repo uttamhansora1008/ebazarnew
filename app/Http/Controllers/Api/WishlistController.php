@@ -14,11 +14,11 @@ class WishlistController extends Controller
     const FALSE= "false";
     public function index(Request $request)
     {
-        $user = auth('api')->user()->id;
-       $wishlists = Wishlist::where("user_id",$user->id)->get();
-
-      if ($wishlists) {
-        return Helper::setresponse(Self::TRUE, $wishlists, "");
+       $user =auth('api')->user();
+       $wishlists = Wishlist::where("user_id",$user->id)->pluck('product_id');
+       $product = product::whereIn('id',$wishlists)->with(['img','rating'])->get();
+      if ($product) {
+        return Helper::setresponse(Self::TRUE, $product,"");
     } else {
         return Helper::setresponse(Self::FALSE, "", "no data found ");
     }

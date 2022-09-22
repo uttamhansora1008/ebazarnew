@@ -16,4 +16,8 @@ class Cupon extends Model
         'expire_date',
         'description',
     ];
+    protected $hidden=[
+'updated_at',
+'created_at',
+    ];
 }

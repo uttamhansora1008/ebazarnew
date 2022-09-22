@@ -20,7 +20,7 @@ class ProductController extends Controller
     const FALSE= "false";
     public function product()
     {
-        $product = Product::with('img')->with('rating')->get();
+        $product = Product::with(['img','rating','wishlist'])->get();
         if ($product) {
             return  Helper::setresponse(Self::TRUE, $product, "false",200);
         } else {
@@ -79,6 +79,7 @@ class ProductController extends Controller
         $product->quantity = $request->quantity;
         $product->stock = $request->stock;
         $product->color_id = $request->color_id;
+        $product->size_id = $request->size_id;
         $product->update();
         foreach ($request->file('image') as $image) {
             $filename = rand(3000,10000).'.'.$image->getClientOriginalExtension();

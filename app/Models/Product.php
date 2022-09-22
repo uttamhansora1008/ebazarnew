@@ -48,4 +48,8 @@ class Product extends Model
         {
             return $this->hasOne(Rating::class,'product_id');
         }
+        public function wishlist()
+        {
+            return $this->hasOne(Wishlist::class,'product_id');
+        }
 }
