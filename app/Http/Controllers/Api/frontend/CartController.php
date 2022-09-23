@@ -20,19 +20,14 @@ class CartController extends Controller
     public function cart_detail(Request $request)
     {
         $total=0;
-
         $user = auth('api')->user();
         $cart=Cart::where('user_id',$user->id)->pluck('product_id');
         $product = Product::with('img')->whereIn('id', $cart)->select( 'id','name','discount','price','quantity')->get();
-
         foreach($product as $price){
-            $total+=$price->price*$price->quantity-=$price->discount/100;
+            $total+=$price->price*$price->quantity;
+            $total-=$price->discount/100;
         }
-        if ($product) {
-            return  Helper::setresponse(Self::TRUE, $product,$total, "false",200);
-        } else {
-            return Helper::setresponse(Self::FALSE, "", "no data found ",404);
-        }
+        return response()->json([ 'product' => $product,'total' => $total],200);
     }
     public function addTocart(Request $request,$id)
     {
@@ -52,20 +47,15 @@ class CartController extends Controller
         if($cart){
             return  Helper::responseWithMessage(Self::TRUE, $cart, 'cart added successfully.',200);
         }
-        $cupon=cupon::where('id',$cart)->select('cupon_name')->get();
+        $coupon = Cupon::where('cupon_name', $request->cupon_name)->first();
         $product = Product::find($id);
         $cart = new Cart();
         $cart->user_id=auth('api')->user()->id;
         $cart->product_id=$product->id;
         $cart->quantity =$request->quantity;
         $cart->size =$request->size;
-
         $cart->save();
-        if ($cart) {
-            return  Helper::setresponse(Self::TRUE, $cart, "false",200);
-        } else {
-            return Helper::setresponse(Self::FALSE, "", "no data found ",404);
-        }
+        return response()->json([ 'cart' => $cart,'coupon' => $coupon],200);
     }
 
 public function update_cart( Request $request,$id)

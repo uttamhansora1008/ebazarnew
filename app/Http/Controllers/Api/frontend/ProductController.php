@@ -119,23 +119,19 @@ class ProductController extends Controller
     }
     public function product(Request $request)
     {
-        // if ($request->colors != null) {
-        //     $colors = [];
-        //     $color_id = implode(",", $request->colors);
-        //     $color_idexplode = explode(",", $color_id);
-        //     foreach ($color_idexplode as $color) {
-        //         array_push($colors, $color);
-        //     }
-        // }
+
+
         $filter_min_price = $request->min_price;
         $filter_max_price = $request->max_price;
         $range = [$filter_min_price, $filter_max_price];
-         $color_id=$request->color_id;
+        $color_id=$request->color_id;
+        $array = $this->stringToArray($color_id);
         $size_id=$request->size_id;
+        $size = $this->stringToArray($size_id);
         $category_id=$request->category_id;
         $category=Subcategory::orWhere('category_id',$category_id)->get();
-        $products = Product::orWhere('color_id',$color_id)
-        ->orWhere('size_id',$size_id)
+        $products = Product::whereIn('color_id',$array)
+        ->orwhereIn('size_id',$size)
         ->orWhere('subcategory_id',$category_id)
         ->orwhereBetween('price', $range)->with('img','rating','wishlist')
         ->get();
@@ -145,6 +141,15 @@ class ProductController extends Controller
             return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
         }
     }
+        protected function stringToArray($stringSeperatedCommas)
+    {
+        return collect(explode(',', $stringSeperatedCommas))->map(function ($string) {
+            return trim($string) != null ? trim($string) : null;
+        })->filter(function ($string) {
+            return trim($string) != null;
+        });
+    }
+
        public function color(Request $request)
        {
         $color=new Color();
