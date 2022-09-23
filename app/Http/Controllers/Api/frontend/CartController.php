@@ -110,7 +110,7 @@ public function order(Request $request) {
         ], 422);
     }
     $order = new Order();
-    $order->user_id=$request->user()->id;
+    $order->user_id=auth('api')->user()->id;
     $order->first_name = $request->first_name;
     $order->last_name = $request->last_name;
     $order->address = $request->address;
@@ -125,7 +125,7 @@ public function order(Request $request) {
     }
 
 }
-public function cupon(Request $request)
+    public function cupon(Request $request)
     {
         $validator =  Validator::make($request->all(), [
             'cupon_name' => 'required',
@@ -151,6 +151,17 @@ public function cupon(Request $request)
             return  Helper::setresponse(Self::TRUE, $cupon, "cupon added successfully",200);
         } else {
             return Helper::setresponse(Self::FALSE, "", "no data found ",404);
+        }
+    }
+
+    public function getCupon()
+    {
+        $cupon = Cupon::all();
+
+        if ($cupon) {
+            return  Helper::setresponse(Self::TRUE, $cupon, "false",200);
+        } else {
+            return  Helper::setresponse(Self::FALSE, "", "no data found ",404);
         }
     }
 }

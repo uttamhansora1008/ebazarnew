@@ -63,6 +63,7 @@ Route::post('update_cart/{id}',[\App\Http\Controllers\api\frontend\CartControlle
 Route::post('cart_delete',[\App\Http\Controllers\api\frontend\CartController::class,'cart_delete']);
 Route::post('/order', [\App\Http\Controllers\api\frontend\CartController::class, 'order']);
 Route::post('cupon', [\App\Http\Controllers\api\frontend\CartController::class, 'cupon']);
+Route::get('get_cupon', [\App\Http\Controllers\api\frontend\CartController::class, 'getCupon']);
 
 Route::get('/wishlist', [WishlistController::class, 'index']);
 Route::post('add-to-wishlist/{product}', [WishlistController::class, 'addToWishlist']);

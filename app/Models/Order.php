@@ -9,7 +9,7 @@ class Order extends Model
 {
     protected $table = 'orders';
     protected $primaryKey = 'order_id';
-  
+
     protected $fillable = [
         'user_id',
         'first_name',
@@ -20,7 +20,9 @@ class Order extends Model
         'pincode',
         'country',
         'phone_no',
-        
-
+    ];
+    protected $hidden=[
+'updated_at',
+'created_at'
     ];
 }
